@@ -6,7 +6,7 @@ We are using multiple entry points (`entry` option) to build every part of the l
 
 We are using the `libraryTarget` option to generate a UMD ([Universal Module Definition](https://github.com/umdjs/umd)) module that is consumable in CommonsJs, AMD and with script tags. The `library` option defines the namespace. We are using `[name]` in the `library` option to give every entry a different namespace.
 
-You can see that webpack automatically wraps your module so that it is consumable in every enviroment. All you need is this simple config.
+You can see that webpack automatically wraps your module so that it is consumable in every environment. All you need is this simple config.
 
 Note: You can also use the `library` and `libraryTarget` options without multiple entry points. Then you don't need `[name]`.
 
@@ -18,28 +18,28 @@ Note: When your library has dependencies that should not be included in the comp
 {{webpack.config.js}}
 ```
 
-# js/MyLibrary.alpha.js
+# dist/MyLibrary.alpha.js
 
 ``` javascript
-{{js/MyLibrary.alpha.js}}
+{{dist/MyLibrary.alpha.js}}
 ```
 
-# js/MyLibrary.beta.js
+# dist/MyLibrary.beta.js
 
 ``` javascript
-{{js/MyLibrary.beta.js}}
+{{dist/MyLibrary.beta.js}}
 ```
 
 # Info
 
-## Uncompressed
+## Unoptimized
 
 ```
 {{stdout}}
 ```
 
-## Minimized (uglify-js, no zip)
+## Production mode
 
 ```
-{{min:stdout}}
+{{production:stdout}}
 ```

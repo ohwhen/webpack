@@ -1,7 +1,9 @@
-var webpack = require("../../../../");
+"use strict";
+const webpack = require("../../../../");
 
 module.exports = {
-	plugins: [
-		new webpack.ExtendedAPIPlugin()
-	]
+	entry: {
+		other: "./index"
+	},
+	plugins: [new webpack.ExtendedAPIPlugin()]
 };

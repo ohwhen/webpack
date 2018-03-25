@@ -1,3 +1,4 @@
 --full-trace
 --reporter dot
---globals addresses
+--check-leaks
+--globals Base64

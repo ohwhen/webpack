@@ -1,46 +1,57 @@
+"use strict";
+
 /* globals describe it */
 require("should");
-var path = require("path");
-var fs = require("fs");
-var webpack = require("../");
+const path = require("path");
+const fs = require("fs");
+const webpack = require("../");
 
-describe("Examples", function() {
-	var examples = fs.readdirSync(path.join(__dirname, "..", "examples")).map(function(name) {
-		return path.join(__dirname, "..", "examples", name);
-	}).filter(function(p) {
-		return fs.statSync(p).isDirectory() && fs.existsSync(path.join(p, "build.js"));
-	});
+describe("Examples", () => {
+	const basePath = path.join(__dirname, "..", "examples");
+	const examples = require("../examples/examples.js");
 
-	examples.forEach(function(examplePath) {
-		it("should compile " + path.basename(examplePath), function(done) {
-			this.timeout(20000);
-			var options = {};
-			var webpackConfigPath = path.join(examplePath, "webpack.config.js");
-			webpackConfigPath = webpackConfigPath.substr(0, 1).toUpperCase() + webpackConfigPath.substr(1);
-			if(fs.existsSync(webpackConfigPath))
+	examples.forEach(examplePath => {
+		const filterPath = path.join(examplePath, "test.filter.js");
+		if (fs.existsSync(filterPath) && !require(filterPath)()) {
+			describe.skip(path.relative(basePath, examplePath), () => it("filtered"));
+			return;
+		}
+		it("should compile " + path.relative(basePath, examplePath), function(
+			done
+		) {
+			this.timeout(30000);
+			let options = {};
+			let webpackConfigPath = path.join(examplePath, "webpack.config.js");
+			webpackConfigPath =
+				webpackConfigPath.substr(0, 1).toUpperCase() +
+				webpackConfigPath.substr(1);
+			if (fs.existsSync(webpackConfigPath))
 				options = require(webpackConfigPath);
-			if(Array.isArray(options))
-				options.forEach(processOptions);
-			else
-				processOptions(options);
+			if (Array.isArray(options)) options.forEach(processOptions);
+			else processOptions(options);
 
 			function processOptions(options) {
 				options.context = examplePath;
 				options.output = options.output || {};
 				options.output.pathinfo = true;
-				options.output.path = path.join(examplePath, "js");
-				options.output.publicPath = "js/";
-				if(!options.output.filename)
-					options.output.filename = "output.js";
-				if(!options.entry)
-					options.entry = "./example.js";
+				options.output.path = path.join(examplePath, "dist");
+				options.output.publicPath = "dist/";
+				if (!options.entry) options.entry = "./example.js";
+				if (!options.plugins) options.plugins = [];
+				// To support deprecated loaders
+				// TODO remove in webpack 5
+				options.plugins.push(
+					new webpack.LoaderOptionsPlugin({
+						options: {}
+					})
+				);
 			}
-			webpack(options, function(err, stats) {
-				if(err) return done(err);
+			webpack(options, (err, stats) => {
+				if (err) return done(err);
 				stats = stats.toJson({
 					errorDetails: true
 				});
-				if(stats.errors.length > 0) {
+				if (stats.errors.length > 0) {
 					return done(new Error(stats.errors[0]));
 				}
 				done();

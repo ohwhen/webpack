@@ -13,15 +13,15 @@ If you are still having difficulty after looking over your configuration careful
 a question to [StackOverflow with the webpack tag](http://stackoverflow.com/tags/webpack). Questions
 that include your webpack.config.js and relevant files are more likely to receive responses.
 
-**If you have discovered a bug or have a feature suggestion, feel free to create an issue on Github.**
+**If you have discovered a bug or have a feature suggestion, please [create an issue on GitHub](https://github.com/webpack/webpack/issues/new).**
 
 ## Contributing to the webpack ecosystem
 
 If you have created your own loader/plugin please include it on the relevant
 documentation pages:
 
-[List of loaders](https://webpack.github.io/docs/list-of-loaders.html)  
-[List of plugins](https://webpack.github.io/docs/list-of-plugins.html)
+[List of loaders](https://webpack.js.org/loaders/) or [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack#loaders)
+[List of plugins](https://webpack.js.org/plugins) or [awesome-webpack](https://github.com/webpack-contrib/awesome-webpack#webpack-plugins)
 
 ## Setup
 
@@ -48,7 +48,7 @@ your pull request should be accepted quickly.
 
 Some things that will increase the chance that your pull request is accepted:
 
-* Write tests
+* [Write tests](./test/README.md)
 * Follow the existing coding style
 * Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
@@ -57,3 +57,7 @@ Some things that will increase the chance that your pull request is accepted:
 webpack is insanely feature rich and documentation is a huge time sink. We
 greatly appreciate any time spent fixing typos or clarifying sections in the
 documentation.
+
+## Discussions
+
+Gitter is only for small questions. To discuss a subject in detail, please send a link to your forum or blog in the Gitter chat.

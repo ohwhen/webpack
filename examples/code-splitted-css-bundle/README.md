@@ -37,9 +37,9 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({
-					notExtractLoader: "style-loader",
-					loader: "css-loader"
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: "css-loader"
 				})
 			},
 			{ test: /\.png$/, loader: "file-loader" }
@@ -66,75 +66,75 @@ body {
 ## Uncompressed
 
 ```
-Hash: e81a3bd9b061e4a4628f
-Version: webpack 2.1.0-beta.25
-Time: 794ms
+Hash: 5be34b0d3c624e61c616
+Version: webpack 3.11.0
                                Asset       Size  Chunks             Chunk Names
 ce21cbdd9b894e6af794813eb3fdaf60.png  119 bytes          [emitted]  
-                         0.output.js    1.03 kB       0  [emitted]  
-                           output.js    7.65 kB       1  [emitted]  main
-                           style.css   68 bytes       1  [emitted]  main
+                         0.output.js    2.44 kB       0  [emitted]  
+                           output.js    21.2 kB       1  [emitted]  main
+                           style.css   71 bytes       1  [emitted]  main
 Entrypoint main = output.js style.css
-chunk    {0} 0.output.js 330 bytes {1} [rendered]
-    > [2] ./example.js 2:0-20
-    [1] ./chunk.js 25 bytes {0} [built]
-        amd require ./chunk [2] ./example.js 2:0-20
-    [4] ./style2.css 223 bytes {0} [built]
-        cjs require ./style2.css [1] ./chunk.js 1:0-23
-    [5] ./image2.png 82 bytes {0} [built]
-        cjs require ./image2.png [4] ./style2.css 6:56-79
-chunk    {1} output.js, style.css (main) 1.59 kB [entry] [rendered]
-    > main [2] ./example.js 
-    [0] ./style.css 41 bytes {1} [built]
-        cjs require ./style.css [2] ./example.js 1:0-22
-    [2] ./example.js 46 bytes {1} [built]
-    [3] (webpack)/~/css-loader/lib/css-base.js 1.51 kB {1} [built]
-        cjs require ./../../node_modules/css-loader/lib/css-base.js [4] ./style2.css 1:27-85
-Child extract-text-webpack-plugin:
+chunk    {0} 0.output.js 1.36 kB {1} [rendered]
+    > [0] ./example.js 2:0-20
+    [5] ./chunk.js 26 bytes {0} [built]
+        amd require ./chunk [0] ./example.js 2:0-20
+    [6] ./style2.css 1.01 kB {0} [built]
+        cjs require ./style2.css [5] ./chunk.js 1:0-23
+    [7] (webpack)/node_modules/css-loader!./style2.css 236 bytes {0} [built]
+        cjs require !!../../node_modules/css-loader/index.js!./style2.css [6] ./style2.css 4:14-78
+    [8] ./image2.png 82 bytes {0} [built]
+        cjs require ./image2.png [7] (webpack)/node_modules/css-loader!./style2.css 6:58-81
+chunk    {1} output.js, style.css (main) 14.1 kB [entry] [rendered]
+    > main [0] ./example.js 
+    [0] ./example.js 48 bytes {1} [built]
+    [1] ./style.css 41 bytes {1} [built]
+        cjs require ./style.css [0] ./example.js 1:0-22
+     + 3 hidden modules
+Child extract-text-webpack-plugin ../../node_modules/extract-text-webpack-plugin/dist ../../node_modules/css-loader/index.js!style.css:
+     1 asset
     Entrypoint undefined = extract-text-webpack-plugin-output-filename
-    chunk    {0} extract-text-webpack-plugin-output-filename 1.81 kB [entry] [rendered]
-        > [2] (webpack)/~/css-loader!./style.css 
-        [0] (webpack)/~/css-loader/lib/css-base.js 1.51 kB {0} [built]
-            cjs require ./../../node_modules/css-loader/lib/css-base.js [2] (webpack)/~/css-loader!./style.css 1:27-85
-        [1] ./image.png 82 bytes {0} [built]
-            cjs require ./image.png [2] (webpack)/~/css-loader!./style.css 6:56-78
-        [2] (webpack)/~/css-loader!./style.css 222 bytes {0} [built]
+    chunk    {0} extract-text-webpack-plugin-output-filename 2.58 kB [entry] [rendered]
+        > [0] (webpack)/node_modules/css-loader!./style.css 
+        [0] (webpack)/node_modules/css-loader!./style.css 235 bytes {0} [built]
+        [2] ./image.png 82 bytes {0} [built]
+            cjs require ./image.png [0] (webpack)/node_modules/css-loader!./style.css 6:58-80
+         + 1 hidden module
 ```
 
 ## Minimized (uglify-js, no zip)
 
 ```
-Hash: 791614886036b3a69264
-Version: webpack 2.1.0-beta.25
-Time: 1183ms
+Hash: edbe0e91ba86d814d855
+Version: webpack 3.11.0
                                Asset       Size  Chunks             Chunk Names
 ce21cbdd9b894e6af794813eb3fdaf60.png  119 bytes          [emitted]  
-                         0.output.js  201 bytes       0  [emitted]  
-                           output.js    1.86 kB       1  [emitted]  main
+                         0.output.js  343 bytes       0  [emitted]  
+                           output.js    6.58 kB       1  [emitted]  main
                            style.css   61 bytes       1  [emitted]  main
 Entrypoint main = output.js style.css
-chunk    {0} 0.output.js 319 bytes {1} [rendered]
-    > [2] ./example.js 2:0-20
-    [1] ./chunk.js 25 bytes {0} [built]
-        amd require ./chunk [2] ./example.js 2:0-20
-    [4] ./style2.css 212 bytes {0} [built]
-        cjs require ./style2.css [1] ./chunk.js 1:0-23
-    [5] ./image2.png 82 bytes {0} [built]
-        cjs require ./image2.png [4] ./style2.css 6:50-73
-chunk    {1} output.js, style.css (main) 1.59 kB [entry] [rendered]
-    > main [2] ./example.js 
-    [0] ./style.css 41 bytes {1} [built]
-        cjs require ./style.css [2] ./example.js 1:0-22
-    [2] ./example.js 46 bytes {1} [built]
-    [3] (webpack)/~/css-loader/lib/css-base.js 1.51 kB {1} [built]
-        cjs require ./../../node_modules/css-loader/lib/css-base.js [4] ./style2.css 1:27-85
-Child extract-text-webpack-plugin:
+chunk    {0} 0.output.js 1.34 kB {1} [rendered]
+    > [0] ./example.js 2:0-20
+    [5] ./chunk.js 26 bytes {0} [built]
+        amd require ./chunk [0] ./example.js 2:0-20
+    [6] ./style2.css 1.01 kB {0} [built]
+        cjs require ./style2.css [5] ./chunk.js 1:0-23
+    [7] (webpack)/node_modules/css-loader!./style2.css 219 bytes {0} [built]
+        cjs require !!../../node_modules/css-loader/index.js!./style2.css [6] ./style2.css 4:14-78
+    [8] ./image2.png 82 bytes {0} [built]
+        cjs require ./image2.png [7] (webpack)/node_modules/css-loader!./style2.css 6:50-73
+chunk    {1} output.js, style.css (main) 14.1 kB [entry] [rendered]
+    > main [0] ./example.js 
+    [0] ./example.js 48 bytes {1} [built]
+    [1] ./style.css 41 bytes {1} [built]
+        cjs require ./style.css [0] ./example.js 1:0-22
+     + 3 hidden modules
+Child extract-text-webpack-plugin ../../node_modules/extract-text-webpack-plugin/dist ../../node_modules/css-loader/index.js!style.css:
+     1 asset
     Entrypoint undefined = extract-text-webpack-plugin-output-filename
-    chunk    {0} extract-text-webpack-plugin-output-filename 1.8 kB [entry] [rendered]
-        > [2] (webpack)/~/css-loader!./style.css 
-        [0] (webpack)/~/css-loader/lib/css-base.js 1.51 kB {0} [built]
-            cjs require ./../../node_modules/css-loader/lib/css-base.js [2] (webpack)/~/css-loader!./style.css 1:27-85
-        [1] ./image.png 82 bytes {0} [built]
-            cjs require ./image.png [2] (webpack)/~/css-loader!./style.css 6:50-72
-        [2] (webpack)/~/css-loader!./style.css 211 bytes {0} [built]
+    chunk    {0} extract-text-webpack-plugin-output-filename 2.56 kB [entry] [rendered]
+        > [0] (webpack)/node_modules/css-loader!./style.css 
+        [0] (webpack)/node_modules/css-loader!./style.css 218 bytes {0} [built]
+        [2] ./image.png 82 bytes {0} [built]
+            cjs require ./image.png [0] (webpack)/node_modules/css-loader!./style.css 6:50-72
+         + 1 hidden module
 ```

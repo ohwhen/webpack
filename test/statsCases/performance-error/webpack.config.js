@@ -1,10 +1,12 @@
 module.exports = {
+	mode: "production",
 	entry: "./index",
 	stats: {
 		colors: true,
-		hash: false
+		hash: false,
+		entrypoints: true
 	},
 	performance: {
-		errorOnHint: true
+		hints: "error"
 	}
 };

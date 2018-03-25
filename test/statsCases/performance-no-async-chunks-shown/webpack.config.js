@@ -1,7 +1,15 @@
 module.exports = {
-	entry: "./index",
+	mode: "production",
+	entry: {
+		main: "./index",
+		sec: "./index2"
+	},
+	performance: {
+		hints: "warning"
+	},
 	stats: {
 		colors: true,
-		hash: false
+		hash: false,
+		entrypoints: true
 	}
 };

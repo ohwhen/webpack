@@ -28,6 +28,7 @@ exports.exampleValue = subtract(add(42, 2), 2);
 
 ``` javascript
 module.exports = {
+	// mode: "development || "production",
 	output: {
 		libraryTarget: "umd"
 	},
@@ -42,10 +43,10 @@ module.exports = {
 			}
 		}
 	]
-}
+};
 ```
 
-# js/output.js
+# dist/output.js
 
 ``` javascript
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -57,54 +58,62 @@ module.exports = {
 		var a = typeof exports === 'object' ? factory(require("add"), require("./math")["subtract"]) : factory(root["add"], root["subtract"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_1__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE__1__, __WEBPACK_EXTERNAL_MODULE__2__) {
+```
+<details><summary><code>return /******/ (function(modules) { /* webpackBootstrap */ })</code></summary>
+
+``` js
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
-
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -113,87 +122,95 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "js/";
-
+/******/ 	__webpack_require__.p = "dist/";
+/******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
+```
+
+</details>
+
+``` js
 /******/ ([
 /* 0 */
-/* unknown exports provided */
-/* all exports used */
-/*!**********************!*\
-  !*** external "add" ***!
-  \**********************/
-/***/ function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
-
-/***/ },
-/* 1 */
-/* unknown exports provided */
-/* all exports used */
-/*!***************************************************************************************************************!*\
-  !*** external {"root":"subtract","commonjs2":"./subtract","commonjs":["./math","subtract"],"amd":"subtract"} ***!
-  \***************************************************************************************************************/
-/***/ function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-/***/ },
-/* 2 */
-/* unknown exports provided */
-/* all exports used */
 /*!********************!*\
   !*** ./example.js ***!
   \********************/
-/***/ function(module, exports, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-var add = __webpack_require__(/*! add */ 0);
-var subtract = __webpack_require__(/*! subtract */ 1);
+var add = __webpack_require__(/*! add */ 1);
+var subtract = __webpack_require__(/*! subtract */ 2);
 
 exports.exampleValue = subtract(add(42, 2), 2);
 
-/***/ }
-/******/ ])
+/***/ }),
+/* 1 */
+/*!**********************!*\
+  !*** external "add" ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__1__;
+
+/***/ }),
+/* 2 */
+/*!***************************************************************************************************************!*\
+  !*** external {"root":"subtract","commonjs2":"./subtract","commonjs":["./math","subtract"],"amd":"subtract"} ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
+
+/***/ })
+/******/ ]);
 });
-;
 ```
 
 # Info
 
-## Uncompressed
+## Unoptimized
 
 ```
-Hash: 9f84bc757816705143ff
-Version: webpack 2.1.0-beta.25
-Time: 102ms
-    Asset     Size  Chunks             Chunk Names
-output.js  4.08 kB       0  [emitted]  main
+Hash: 0a1b2c3d4e5f6a7b8c9d
+Version: webpack 4.0.0-beta.2
+    Asset      Size  Chunks             Chunk Names
+output.js  4.17 KiB       0  [emitted]  main
 Entrypoint main = output.js
-chunk    {0} output.js (main) 194 bytes [entry] [rendered]
-    > main [2] ./example.js 
-    [2] ./example.js 110 bytes {0} [built]
-     + 2 hidden modules
+chunk    {0} output.js (main) 197 bytes [entry] [rendered]
+    > .\example.js main
+    [0] ./example.js 113 bytes {0} [built]
+        single entry .\example.js  main
+    [1] external "add" 42 bytes {0} [built]
+        cjs require add [0] ./example.js 1:10-24
+    [2] external {"root":"subtract","commonjs2":"./subtract","commonjs":["./math","subtract"],"amd":"subtract"} 42 bytes {0} [built]
+        cjs require subtract [0] ./example.js 2:15-34
 ```
 
-## Minimized (uglify-js, no zip)
+## Production mode
 
 ```
-Hash: 9f84bc757816705143ff
-Version: webpack 2.1.0-beta.25
-Time: 215ms
-    Asset       Size  Chunks             Chunk Names
-output.js  994 bytes       0  [emitted]  main
+Hash: 0a1b2c3d4e5f6a7b8c9d
+Version: webpack 4.0.0-beta.2
+    Asset      Size  Chunks             Chunk Names
+output.js  1.02 KiB       0  [emitted]  main
 Entrypoint main = output.js
-chunk    {0} output.js (main) 194 bytes [entry] [rendered]
-    > main [2] ./example.js 
-    [2] ./example.js 110 bytes {0} [built]
-     + 2 hidden modules
+chunk    {0} output.js (main) 197 bytes [entry] [rendered]
+    > .\example.js main
+    [0] external {"root":"subtract","commonjs2":"./subtract","commonjs":["./math","subtract"],"amd":"subtract"} 42 bytes {0} [built]
+        cjs require subtract [2] ./example.js 2:15-34
+    [1] external "add" 42 bytes {0} [built]
+        cjs require add [2] ./example.js 1:10-24
+    [2] ./example.js 113 bytes {0} [built]
+        single entry .\example.js  main
 ```

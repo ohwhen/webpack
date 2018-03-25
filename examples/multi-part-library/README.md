@@ -6,7 +6,7 @@ We are using multiple entry points (`entry` option) to build every part of the l
 
 We are using the `libraryTarget` option to generate a UMD ([Universal Module Definition](https://github.com/umdjs/umd)) module that is consumable in CommonsJs, AMD and with script tags. The `library` option defines the namespace. We are using `[name]` in the `library` option to give every entry a different namespace.
 
-You can see that webpack automatically wraps your module so that it is consumable in every enviroment. All you need is this simple config.
+You can see that webpack automatically wraps your module so that it is consumable in every environment. All you need is this simple config.
 
 Note: You can also use the `library` and `libraryTarget` options without multiple entry points. Then you don't need `[name]`.
 
@@ -17,20 +17,21 @@ Note: When your library has dependencies that should not be included in the comp
 ``` javascript
 var path = require("path");
 module.exports = {
+	// mode: "development || "production",
 	entry: {
 		alpha: "./alpha",
 		beta: "./beta"
 	},
 	output: {
-		path: path.join(__dirname, "js"),
+		path: path.join(__dirname, "dist"),
 		filename: "MyLibrary.[name].js",
 		library: ["MyLibrary", "[name]"],
 		libraryTarget: "umd"
 	}
-}
+};
 ```
 
-# js/MyLibrary.alpha.js
+# dist/MyLibrary.alpha.js
 
 ``` javascript
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -42,54 +43,62 @@ module.exports = {
 		exports["alpha"] = factory();
 	else
 		root["MyLibrary"] = root["MyLibrary"] || {}, root["MyLibrary"]["alpha"] = factory();
-})(this, function() {
+})(window, function() {
+```
+<details><summary><code>return /******/ (function(modules) { /* webpackBootstrap */ })</code></summary>
+
+``` js
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
-
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -98,35 +107,39 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "js/";
-
+/******/ 	__webpack_require__.p = "dist/";
+/******/
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
+```
+
+</details>
+
+``` js
 /******/ ([
 /* 0 */
-/* unknown exports provided */
-/* all exports used */
 /*!******************!*\
   !*** ./alpha.js ***!
   \******************/
-/***/ function(module, exports) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 module.exports = "alpha";
 
-/***/ }
-/******/ ])
+/***/ })
+/******/ ]);
 });
-;
 ```
 
-# js/MyLibrary.beta.js
+# dist/MyLibrary.beta.js
 
 ``` javascript
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -138,54 +151,58 @@ module.exports = "alpha";
 		exports["beta"] = factory();
 	else
 		root["MyLibrary"] = root["MyLibrary"] || {}, root["MyLibrary"]["beta"] = factory();
-})(this, function() {
+})(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
-
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -194,13 +211,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "js/";
-
+/******/ 	__webpack_require__.p = "dist/";
+/******/
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
@@ -208,57 +226,57 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ([
 /* 0 */,
 /* 1 */
-/* unknown exports provided */
-/* all exports used */
 /*!*****************!*\
   !*** ./beta.js ***!
   \*****************/
-/***/ function(module, exports) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 module.exports = "beta";
 
-/***/ }
-/******/ ])
+/***/ })
+/******/ ]);
 });
-;
 ```
 
 # Info
 
-## Uncompressed
+## Unoptimized
 
 ```
-Hash: 082bbeea226fa367215b
-Version: webpack 2.1.0-beta.25
-Time: 104ms
-             Asset     Size  Chunks             Chunk Names
- MyLibrary.beta.js  3.02 kB       0  [emitted]  beta
-MyLibrary.alpha.js  3.01 kB       1  [emitted]  alpha
+Hash: 0a1b2c3d4e5f6a7b8c9d
+Version: webpack 4.0.0-beta.2
+             Asset      Size  Chunks             Chunk Names
+MyLibrary.alpha.js  3.16 KiB       0  [emitted]  alpha
+ MyLibrary.beta.js  3.16 KiB       1  [emitted]  beta
 Entrypoint alpha = MyLibrary.alpha.js
 Entrypoint beta = MyLibrary.beta.js
-chunk    {0} MyLibrary.beta.js (beta) 24 bytes [entry] [rendered]
-    > beta [1] ./beta.js 
-    [1] ./beta.js 24 bytes {0} [built]
-chunk    {1} MyLibrary.alpha.js (alpha) 25 bytes [entry] [rendered]
-    > alpha [0] ./alpha.js 
-    [0] ./alpha.js 25 bytes {1} [built]
+chunk    {0} MyLibrary.alpha.js (alpha) 25 bytes [entry] [rendered]
+    > ./alpha alpha
+    [0] ./alpha.js 25 bytes {0} [built]
+        single entry ./alpha  alpha
+chunk    {1} MyLibrary.beta.js (beta) 24 bytes [entry] [rendered]
+    > ./beta beta
+    [1] ./beta.js 24 bytes {1} [built]
+        single entry ./beta  beta
 ```
 
-## Minimized (uglify-js, no zip)
+## Production mode
 
 ```
-Hash: 082bbeea226fa367215b
-Version: webpack 2.1.0-beta.25
-Time: 248ms
+Hash: 0a1b2c3d4e5f6a7b8c9d
+Version: webpack 4.0.0-beta.2
              Asset       Size  Chunks             Chunk Names
- MyLibrary.beta.js  775 bytes       0  [emitted]  beta
-MyLibrary.alpha.js  777 bytes       1  [emitted]  alpha
+ MyLibrary.beta.js  828 bytes       0  [emitted]  beta
+MyLibrary.alpha.js  832 bytes       1  [emitted]  alpha
 Entrypoint alpha = MyLibrary.alpha.js
 Entrypoint beta = MyLibrary.beta.js
 chunk    {0} MyLibrary.beta.js (beta) 24 bytes [entry] [rendered]
-    > beta [1] ./beta.js 
-    [1] ./beta.js 24 bytes {0} [built]
+    > ./beta beta
+    [0] ./beta.js 24 bytes {0} [built]
+        single entry ./beta  beta
 chunk    {1} MyLibrary.alpha.js (alpha) 25 bytes [entry] [rendered]
-    > alpha [0] ./alpha.js 
-    [0] ./alpha.js 25 bytes {1} [built]
+    > ./alpha alpha
+    [1] ./alpha.js 25 bytes {1} [built]
+        single entry ./alpha  alpha
 ```
